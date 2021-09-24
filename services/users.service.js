@@ -5,10 +5,24 @@ exports.register = (data, callback) => {
         `INSERT INTO users (firstName, lastName, emailId, password) VAlues (?,?,?,?)`,
         [data.firstName, data.lastName, data.emailId, data.password],
         (error, results, fields) => {
-            if(error){
+            if (error) {
                 return callback(error);
             }
             return callback(null, `Registrarion successful`)
         }
-    )
-}
+    );
+};
+
+exports.login = (data, callback) => {
+    db.query(`SELECT id FROM users WHERE emailId = ? AND password = ?`,
+        [data.emailId, data.password], (error, results, fields) => {
+            if (error) {
+                return callback(error);
+            }
+            if (results.length > 0) {
+                return callback(null, "Login success");
+            } else {
+                return callback("Invalid credential");
+            };
+        });
+};
