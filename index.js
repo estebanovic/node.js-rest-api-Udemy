@@ -3,7 +3,7 @@ const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express")
 const bodyParser = require("body-parser");
 const usersRoute = require("./routes/users.route");
-const swaggerJSDoc = require("swagger-jsdoc");
+const postsRoute = require("./routes/posts.route");
 
 
 const app = express();
@@ -25,9 +25,10 @@ const swaggerOption = {
 };
 
 const swaggerDocs = swaggerJsdoc(swaggerOption);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-app.use("/users", usersRoute)
+app.use("/users", usersRoute);
+app.use("/posts", postsRoute);
 
 
 app.listen(3000, () => {
