@@ -4,7 +4,7 @@ exports.addPost = (req, res, next) => {
     const data = {
         description: req.body.description,
         imagePath: req.body.imagePath,
-        addByUserId: req.body.addByUserId
+        addedByUserId: req.body.addedByUserId
     }
 
     postsService.addPost(data, (error, result) => {

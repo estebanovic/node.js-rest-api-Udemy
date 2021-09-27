@@ -1,9 +1,10 @@
 const db = require("../config/db.config");
 
 exports.addPost = (data, callback) => {
-    db.query(`INSERT INTO posts (description, imagePath, datatimeCreated, addedByUsesId)
-    VALUES (?,?,?,?)`,
-        [data.description, data.imagePath, new Date(), data.addedByUsesId],
+    console.log(data);
+    db.query(`INSERT INTO posts (description, imagePath, datetimeCreated, addedByUserId)
+    VALUES (?, ?, ?, ?)`,
+        [data.description, data.imagePath, new Date(), data.addedByUserId],
         (error, results, fields) => {
             if (error) {
                 return callback(error);
