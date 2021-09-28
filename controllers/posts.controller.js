@@ -18,3 +18,17 @@ exports.addPost = (req, res, next) => {
         });
     });
 };
+
+exports.getAllPosts = (req, res, next) => {
+    const data = {};
+    postsService.getAllPosts(data, (error, result) => {
+        if (error) {
+            console.log(error);
+            return res.status(400).send({ success: 0, data: "Bad request"});
+        }
+        return res.status(200).send({
+            success: 1,
+            data: result
+        });
+    });
+};
