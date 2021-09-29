@@ -55,3 +55,46 @@ exports.getPostAllComments = (data, callback) => {
         }
     );
 };
+
+exports.likePost = (data, callback) => {
+    db.query(
+      `UPDATE  posts
+      SET 
+      likeCount = likeCount + 1
+      WHERE 
+      id = ?`,
+      [data.postId],
+      (error, results, fields) => {
+        if (error) {
+          return callback(error);
+        }
+        if (results.affectedRows === 1) {
+          return callback(null, `Like Successful`);
+        } else {
+          return callback(new Error("Invalid post"));
+        }
+      }
+    );
+  };
+  
+  exports.dislikePost = (data, callback) => {
+    db.query(
+      `UPDATE  posts
+      SET 
+      dislikeCount = dislikeCount + 1
+      WHERE 
+      id = ?`,
+      [data.postId],
+      (error, results, fields) => {
+        if (error) {
+          return callback(error);
+        }
+        if (results.affectedRows === 1) {
+          return callback(null, `Dislike Successful`);
+        } else {
+          return callback(new Error("Invalid post"));
+        }
+      }
+    );
+  };
+  
