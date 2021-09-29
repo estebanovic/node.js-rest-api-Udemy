@@ -179,5 +179,27 @@ router.put("/like-post", postsController.likePost);
   *              description: Bad request
   */
 
+ router.delete("/delete-post", postsController.deletePost);
+/**
+ * @swagger
+ * /posts/delete-post:
+ *   delete:
+ *      description: Used to delete post
+ *      tags:
+ *          - posts
+ *      parameters:
+ *          - in: query
+ *            name: postId
+ *            type: integer
+ *            description: Post id
+ *            required: true
+ *      responses:
+ *          '200':
+ *              description: Resource added successfully
+ *          '500':
+ *              description: Internal server error
+ *          '400':
+ *              description: Bad request
+ */
 
 module.exports = router;

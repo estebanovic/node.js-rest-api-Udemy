@@ -58,43 +58,59 @@ exports.getPostAllComments = (data, callback) => {
 
 exports.likePost = (data, callback) => {
     db.query(
-      `UPDATE  posts
+        `UPDATE  posts
       SET 
       likeCount = likeCount + 1
       WHERE 
       id = ?`,
-      [data.postId],
-      (error, results, fields) => {
-        if (error) {
-          return callback(error);
+        [data.postId],
+        (error, results, fields) => {
+            if (error) {
+                return callback(error);
+            }
+            if (results.affectedRows === 1) {
+                return callback(null, `Like Successful`);
+            } else {
+                return callback(new Error("Invalid post"));
+            }
         }
-        if (results.affectedRows === 1) {
-          return callback(null, `Like Successful`);
-        } else {
-          return callback(new Error("Invalid post"));
-        }
-      }
     );
-  };
-  
-  exports.dislikePost = (data, callback) => {
+};
+
+exports.dislikePost = (data, callback) => {
     db.query(
-      `UPDATE  posts
+        `UPDATE  posts
       SET 
       dislikeCount = dislikeCount + 1
       WHERE 
       id = ?`,
-      [data.postId],
-      (error, results, fields) => {
-        if (error) {
-          return callback(error);
+        [data.postId],
+        (error, results, fields) => {
+            if (error) {
+                return callback(error);
+            }
+            if (results.affectedRows === 1) {
+                return callback(null, `Dislike Successful`);
+            } else {
+                return callback(new Error("Invalid post"));
+            }
         }
-        if (results.affectedRows === 1) {
-          return callback(null, `Dislike Successful`);
-        } else {
-          return callback(new Error("Invalid post"));
-        }
-      }
     );
-  };
-  
+};
+
+exports.deletePost = (data, callback) => {
+    db.query(
+        `DELETE FROM posts WHERE id = ?`,
+        [data.postId],
+        (error, result, fields) => {
+            if (error) {
+                return callback(error);
+            }
+            if (result.affectedRows === 1) {
+                return callback(null, "Post Deleted Successfully");
+            } else {
+                return callback(new Error("Invalid post"));
+            };
+        }
+    );
+};
